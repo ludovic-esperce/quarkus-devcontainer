@@ -1,62 +1,76 @@
-# code-with-quarkus
+# Création d'un projet
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+1. Installation de [Quarkus CLI](https://quarkus.io/get-started/)
+2. Création d'un projet :
+```
+quarkus create
+```
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+Alternative sans Quarkus Cli ->  [quarkus.io](https://code.quarkus.io/)
 
-## Running the application in dev mode
+# Mise en place d'un devcontainer (ouai, ouai)
 
-You can run your application in dev mode that enables live coding using:
+Fonctionne avec VSCode. A tester avec d'autres IDE.
+
+1. Création d'un dossier `.devcontainer` dans le projet Quarkus
+2. Ajout d'un fichier  `devcontainer.json` tel que :
+```json
+{
+    "name": "Quarkus - 21-jdk-bookworm",
+    "image": "mcr.microsoft.com/devcontainers/java:21-jdk-bookworm",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        "ghcr.io/devcontainers/features/java:1": {
+            "installMaven": "true",
+            "installGradle": "false"
+        },
+        "ghcr.io/ebaskoro/devcontainer-features/sdkman:1": {
+			"candidate" : "quarkus"
+			}
+    },
+    "postCreateCommand": "mvn clean",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "msjsdiag.debugger-for-chrome",
+                "oderwat.indent-rainbow",
+                "visualstudioexptteam.vscodeintellicode",
+                "ritwickdey.liveserver",
+                "shengchen.vscode-checkstyle",
+                "dhruv.maven-dependency-explorer",
+                "JoseVSeb.google-java-format-for-vs-code",
+                "ms-azuretools.vscode-docker",
+                "redhat.fabric8-analytics",
+                "redhat.java",
+                "redhat.vscode-microprofile",
+                "redhat.vscode-quarkus",
+                "redhat.vscode-xml",
+                "visualstudioexptteam.vscodeintellicode",
+                "vscjava.vscode-java-debug",
+                "vscjava.vscode-java-dependency",
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-java-test",
+                "vscjava.vscode-maven"
+            ]
+        }
+    },
+    "forwardPorts": [
+        8080
+    ]
+}
+```
+
+Puis "reopen" le dev container, plus d'informations [ici](https://code.visualstudio.com/docs/devcontainers/tutorial)
+
+# Démarrer l'application en "dev mode"
 
 ```shell script
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
-
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/code-with-quarkus-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+> [!NOTE]
+> Dev UI intégrée accessible en utilisant l'adresse suivante : [http://localhost:8080/q/dev/](http://localhost:8080/q/dev/)
