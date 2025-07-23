@@ -1,0 +1,61 @@
+{
+    // Nom du devcontainer
+    "name": "Quarkus - 21-jdk-bookworm",
+    // image utilisée
+    "image": "mcr.microsoft.com/devcontainers/java:21-jdk-bookworm",
+    // paramétrage du dossier "workspace" par défaut
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    // ajout de features au container : par exemple un outil de compilation, un client en ligne de commande (CLI), un language
+    // ci-dessous un rappel des liens pointant vers les pages explicatives des features ajoutées
+    // pour une liste exhaustive : https://containers.dev/features
+    "features": {
+        // https://github.com/devcontainers/features/tree/main/src/common-utils
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        // https://github.com/devcontainers/features/tree/main/src/github-cli
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        // https://github.com/devcontainers/features/tree/main/src/sshd
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        // https://github.com/devcontainers/features/tree/main/src/java
+        "ghcr.io/devcontainers/features/java:1": {
+            "installMaven": "true",
+            "installGradle": "false"
+        },
+        // Peut être pas besoin de sdkman (vu qu'il est contenu dans la feature précédente). A tester sans
+        "ghcr.io/ebaskoro/devcontainer-features/sdkman:1": {
+			"candidate" : "quarkus"
+			}
+    },
+    // postCreateCommand permet de run une commande exécutée automatiquement après la création du devcontainer
+    "postCreateCommand": "mvn clean",
+    // Ajout d'extensions à VSCode
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "msjsdiag.debugger-for-chrome",
+                "oderwat.indent-rainbow",
+                "visualstudioexptteam.vscodeintellicode",
+                "ritwickdey.liveserver",
+                "shengchen.vscode-checkstyle",
+                "dhruv.maven-dependency-explorer",
+                "JoseVSeb.google-java-format-for-vs-code",
+                "ms-azuretools.vscode-docker",
+                "redhat.fabric8-analytics",
+                "redhat.java",
+                "redhat.vscode-microprofile",
+                "redhat.vscode-quarkus",
+                "redhat.vscode-xml",
+                "visualstudioexptteam.vscodeintellicode",
+                "vscjava.vscode-java-debug",
+                "vscjava.vscode-java-dependency",
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-java-test",
+                "vscjava.vscode-maven"
+            ]
+        }
+    },
+    // Redirection de port pour accéder au projet en "localhost:8080"
+    "forwardPorts": [
+        8080
+    ]
+}
